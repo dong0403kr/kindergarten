@@ -102,7 +102,7 @@
             grid-template-rows: repeat(4, 75px);
             grid-gap: 10px;
             margin-top: 300px;
-            margin-left: 1400px;
+            margin-left: 1320px;
             position: relative;
             z-index: 2;
             transform-origin: 0 0;
@@ -112,7 +112,7 @@
             width: 75px;
             height: 75px;
             border: 0px solid black;
-            cursor: move;
+            cursor: pointer;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -195,7 +195,7 @@
         e.preventDefault();
         draggedItem = this;
         const rect = draggedItem.getBoundingClientRect();
-        offsetX = (e.clientX || e.touches[0].clientX) - rect.left + 1400;
+        offsetX = (e.clientX || e.touches[0].clientX) - rect.left + 1320;
         offsetY = (e.clientY || e.touches[0].clientY) - rect.top + 355;
 
         draggedItem.classList.add('dragging');
