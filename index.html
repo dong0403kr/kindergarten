@@ -16,7 +16,7 @@
 
         /* 십자 화살표를 위한 컨테이너 */
         #arrow-container {
-            margin-top:4%;
+            margin-top:6%;
             position: absolute;
             width: 1000px;
             height: 800px;
@@ -266,7 +266,7 @@
         captureArea.style.left = '0px';
         captureArea.style.top = '0px';
         captureArea.style.width = '1300px';
-        captureArea.style.height = '950px';
+        captureArea.style.height = '1050px';
         captureArea.style.overflow = 'hidden';
         document.body.appendChild(captureArea);
 
@@ -274,7 +274,7 @@
             x: 0,
             y: 0,
             width: 1300,
-            height: 950
+            height: 1050
         }).then(function (canvas) {
             const link = document.createElement('a');
             link.href = canvas.toDataURL('image/png');
