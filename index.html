@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>고멤 유치원</title>
     <style>
         /* 전체 컨테이너 */
@@ -16,7 +16,7 @@
 
         /* 십자 화살표를 위한 컨테이너 */
         #arrow-container {
-            margin-top:6%;
+            margin-top:100px;
             position: absolute;
             width: 1000px;
             height: 800px;
@@ -105,6 +105,7 @@
             margin-left: 1400px;
             position: relative;
             z-index: 2;
+            transform-origin: 0 0;
         }
 
         .grid-item {
@@ -180,6 +181,7 @@
     let offsetY = 0;
 
     function handleDragStart(e) {
+        e.preventDefault();
         draggedItem = this;
         const rect = draggedItem.getBoundingClientRect();
         offsetX = (e.clientX || e.touches[0].clientX) - rect.left + 1400;
@@ -194,6 +196,7 @@
         if (draggedItem) {
             const clientX = e.clientX || e.touches[0].clientX;
             const clientY = e.clientY || e.touches[0].clientY;
+            const scale = 1;
             const newLeft = clientX - offsetX + window.scrollX;
             const newTop = clientY - offsetY + window.scrollY;
             draggedItem.style.left = newLeft + 'px';
