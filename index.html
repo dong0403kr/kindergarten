@@ -20,7 +20,7 @@
             position: absolute;
             width: 1000px;
             height: 800px;
-            margin-left: 5%;
+            margin-left: 2%;
             z-index: 1;
         }
 
@@ -51,9 +51,10 @@
 
         #x-axis::after {
             content: '컨셉';
-            font-size: 25px;
-            right: -75px;
-            top: -10px;
+            font-size: 100px;
+            opacity: calc(0.2);
+            right: -200px;
+            top: -70px;
             display: flex;
             align-items: center;
         }
@@ -84,13 +85,16 @@
 }
 
         #y-axis::before {
+            width: 400px;
             content: '피지컬';
-            font-size: 25px;
-            left: -100px;
-            top: -20px;
+            font-size: 100px;
+            opacity: calc(0.2);
+            left: -150px;
+            top: -100px;
             display: flex;
             align-items: center;
         }
+
         /* 이미지 바둑판 배열을 위한 컨테이너 */
         #image-grid {
             display: grid;
@@ -98,7 +102,7 @@
             grid-template-rows: repeat(4, 75px);
             grid-gap: 10px;
             margin-top: 300px;
-            margin-left: 1300px;
+            margin-left: 1400px;
             position: relative;
             z-index: 2;
         }
@@ -175,51 +179,84 @@
     let offsetX = 0;
     let offsetY = 0;
 
-    document.querySelectorAll('.grid-item').forEach(item => {
-        item.addEventListener('mousedown', function (e) {
-            draggedItem = this;
-            const rect = draggedItem.getBoundingClientRect();
-            offsetX = e.clientX - rect.left + 1300;
-            offsetY = e.clientY - rect.top + 300; 
+    function handleDragStart(e) {
+        draggedItem = this;
+        const rect = draggedItem.getBoundingClientRect();
+        offsetX = (e.clientX || e.touches[0].clientX) - rect.left + 1400;
+        offsetY = (e.clientY || e.touches[0].clientY) - rect.top + 300;
 
-            draggedItem.classList.add('dragging');
-            // Disable transition during drag
-            draggedItem.style.transition = 'none';
-            // Position adjustment to account for scroll and other factors
-            draggedItem.style.position = 'absolute';
-        });
-    });
+        draggedItem.classList.add('dragging');
+        draggedItem.style.transition = 'none';
+        draggedItem.style.position = 'absolute';
+    }
 
-    document.addEventListener('mousemove', function (e) {
+    function handleDragMove(e) {
         if (draggedItem) {
-            // Update position based on cursor and offsets
-            const newLeft = e.clientX - offsetX + window.scrollX;
-            const newTop = e.clientY - offsetY + window.scrollY;
+            const clientX = e.clientX || e.touches[0].clientX;
+            const clientY = e.clientY || e.touches[0].clientY;
+            const newLeft = clientX - offsetX + window.scrollX;
+            const newTop = clientY - offsetY + window.scrollY;
             draggedItem.style.left = newLeft + 'px';
             draggedItem.style.top = newTop + 'px';
+            if (e.touches) {
+            // 터치 드래그 중 스크롤 방지
+            e.preventDefault();
         }
-    });
+        }
+    }
 
-    document.addEventListener('mouseup', function () {
+    function handleDragEnd() {
         if (draggedItem) {
             draggedItem.classList.remove('dragging');
-            // Re-enable transition
             draggedItem.style.transition = '';
             draggedItem = null;
         }
+    }
+
+    document.querySelectorAll('.grid-item').forEach(item => {
+        item.addEventListener('mousedown', handleDragStart);
+        item.addEventListener('touchstart', handleDragStart, { passive: true });
     });
 
-    // document.getElementById('screenshot-button').addEventListener('click', function () {
-    //     html2canvas(document.body).then(function (canvas) {
-    //         const link = document.createElement('a');
-    //         link.href = canvas.toDataURL('image/png');
-    //         link.download = 'screenshot.png';
-    //         document.body.appendChild(link); // 링크를 문서에 추가
-    //         link.click(); // 링크 클릭
-    //         document.body.removeChild(link); // 링크 제거
-    //     }).catch(function (error) {
-    //         console.error('스크린샷 찍기 실패:', error);
+    document.addEventListener('mousemove', handleDragMove);
+    document.addEventListener('touchmove', handleDragMove, { passive: false });
+
+    document.addEventListener('mouseup', handleDragEnd);
+    document.addEventListener('touchend', handleDragEnd);
+    
+
+    // document.querySelectorAll('.grid-item').forEach(item => {
+    //     item.addEventListener('mousedown', function (e) {
+    //         draggedItem = this;
+    //         const rect = draggedItem.getBoundingClientRect();
+    //         offsetX = e.clientX - rect.left + 1300;
+    //         offsetY = e.clientY - rect.top + 300; 
+
+    //         draggedItem.classList.add('dragging');
+    //         // Disable transition during drag
+    //         draggedItem.style.transition = 'none';
+    //         // Position adjustment to account for scroll and other factors
+    //         draggedItem.style.position = 'absolute';
     //     });
+    // });
+
+    // document.addEventListener('mousemove', function (e) {
+    //     if (draggedItem) {
+    //         // Update position based on cursor and offsets
+    //         const newLeft = e.clientX - offsetX + window.scrollX;
+    //         const newTop = e.clientY - offsetY + window.scrollY;
+    //         draggedItem.style.left = newLeft + 'px';
+    //         draggedItem.style.top = newTop + 'px';
+    //     }
+    // });
+
+    // document.addEventListener('mouseup', function () {
+    //     if (draggedItem) {
+    //         draggedItem.classList.remove('dragging');
+    //         // Re-enable transition
+    //         draggedItem.style.transition = '';
+    //         draggedItem = null;
+    //     }
     // });
 
     // 스크린샷 버튼 클릭 시 특정 영역의 스크린샷 찍기
