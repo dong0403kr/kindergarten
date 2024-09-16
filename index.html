@@ -6,6 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>고멤 유치원</title>
     <style>
+        @font-face {
+            font-family: 'WavvePADO-Regular';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/WavvePADO-Regular.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'MaplestoryOTFLight';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFLight.woff') format('woff');
+            font-weight: normal;
+            font-style: normal; 
+        }
+
         /* 전체 컨테이너 */
         #container {
             display: flex;
@@ -51,6 +64,7 @@
         }
 
         #x-axis::after {
+            font-family: 'MaplestoryOTFLight';
             content: '컨셉';
             font-size: 100px;
             opacity: calc(0.2);
@@ -86,6 +100,7 @@
         }       
 
         #y-axis::before {
+            font-family: 'WavvePADO-Regular';
             width: 400px;
             content: '피지컬';
             font-size: 100px;
@@ -372,7 +387,7 @@
 
     const isMobile = window.matchMedia('(max-width: 500px)').matches;
     const offsetValues = {
-        mobile: { x: 45, y: 565 },
+        mobile: { x: 40, y: 565 },
         desktop: { x: 1320, y: 355 }
     };
 
