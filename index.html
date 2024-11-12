@@ -24,89 +24,68 @@
             display: flex;
             position: relative;
             width: 100%;
-            height: 800px;
+            height: 900px;
             margin: 0 auto;
         }
 
         /* 십자 화살표를 위한 컨테이너 */
         #arrow-container {
-            margin-top:100px;
+            margin-top:20px;
             position: absolute;
-            width: 1000px;
-            height: 800px;
+            width: 800px;
+            height: 900px;
             margin-left: 2%;
             z-index: 1;
         }
 
+        #passed {
+            font-family: 'MaplestoryOTFLight';
+            text-align: center;
+            font-size: 350px;
+            color:rgba(46, 167, 56, 0.048);
+            position: relative;
+            width: 100%;
+            height: 50%;
+            background-color: #00ff1510;
+            
+        }
+        
+        #failed {
+            font-family: 'MaplestoryOTFLight';
+            text-align: center;
+            font-size: 350px;
+            color:rgba(167, 46, 46, 0.027);
+            position: relative;
+            width: 100%;
+            height: 50%;
+            background-color: #ff000010;
+        }
+
         /* X축(컨셉)과 Y축(피지컬) */
-        #x-axis, #y-axis {
+        #x-axis {
             position: absolute;
-            background-color: rgb(163, 163, 163);
+            background-color: rgb(211, 20, 20);
         }
 
         #x-axis {
             width: 100%;
-            height: 2px;
-            top: 60%;
-        }
-
-        #y-axis {
-            width: 2px;
-            height: 100%;
-            left: 40%;
+            height: 4px;
+            top: 50%;
         }
 
         /* 화살표 끝에 텍스트와 화살표 머리 추가 */
-        #x-axis::after, #y-axis::before {
+        #x-axis::after {
             position: absolute;
-            font-size: 18px;
-            font-weight: bold;
+            color: rgb(168, 168, 168);
         }
 
         #x-axis::after {
             font-family: 'MaplestoryOTFLight';
-            content: '컨셉';
-            font-size: 100px;
-            opacity: calc(0.2);
+            content: '합격선';
+            font-size: 70px;
+            opacity: calc(0.7);
             right: -200px;
-            top: -70px;
-            display: flex;
-            align-items: center;
-        }
-
-        #x-axis::before {
-            content: '';
-            position: absolute;
-            right: 0;
-            left: 1000px;
-            top: -8px; /* 조정 필요 */
-            width: 0;
-            height: 0;
-            border-top: 10px solid transparent;
-            border-bottom: 10px solid transparent;
-            border-left: 10px solid rgb(163, 163, 163);
-        }
-
-        #y-axis::after {
-            content: '';
-            position: absolute;
-            left: -8px; /* 조정 필요 */
-            top: -6px;
-            width: 0;
-            height: 0;
-            border-right: 10px solid transparent;
-            border-left: 10px solid transparent;
-            border-bottom: 10px solid rgb(163, 163, 163);
-        }       
-
-        #y-axis::before {
-            font-family: 'WavvePADO-Regular';
-            width: 400px;
-            content: '피지컬';
-            font-size: 100px;
-            opacity: calc(0.2);
-            left: -150px;
-            top: -100px;
+            top: -40px;
             display: flex;
             align-items: center;
         }
@@ -227,6 +206,30 @@
                 height: 99%;
                 width: 99%;
             }
+
+            #passed {
+            font-family: 'MaplestoryOTFLight';
+            text-align: center;
+            font-size: 50px;
+            color:rgba(46, 167, 56, 0.048);
+            position: relative;
+            width: 100%;
+            height: 50%;
+            background-color: #00ff1510;
+            
+        }
+        
+        #failed {
+            font-family: 'MaplestoryOTFLight';
+            text-align: center;
+            font-size: 50px;
+            color:rgba(167, 46, 46, 0.027);
+            position: relative;
+            width: 100%;
+            height: 50%;
+            background-color: #ff000010;
+        }
+
         #image1 {
             top: 0px; left: 0px;
         }
@@ -322,29 +325,13 @@
                 display: none;
             }
 
-            #y-axis {
-                left: 40%;
-            }
-
-            #x-axis {
-                top: 60%;
-            }
-
 
             #x-axis::after { /* 컨셉 */
                 font-size: 25px;
                 right: -10px;
                 top: 10px;
             }
-            #x-axis::before {
-                left: 99%;
-            }
 
-            #y-axis::before {
-                font-size: 25px;
-                left: -35px;
-                top: -40px;
-            }
         }
 
         @media all and (max-width: 400px){
@@ -367,8 +354,9 @@
 <div id="container">
     <!-- 십자 화살표 -->
     <div id="arrow-container">
+        <div id="passed">합격</div>
         <div id="x-axis"></div>
-        <div id="y-axis"></div>
+        <div id="failed">불합격</div>
     </div>
     <div id="buttongrid">
         <button id="screenshot-button">스크린샷</button>
@@ -506,7 +494,7 @@
         html2canvas(document.body, {
             x: 0,
             y: 0,
-            width: 1300,
+            width: 1100,
             height: 950
         }).then(function (canvas) {
             const link = document.createElement('a');
